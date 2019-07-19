@@ -1,0 +1,2317 @@
+<!DOCTYPE html><html><head>
+      <title>L6.1.Plugin_PyQt</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/theme/white.css">
+      <style>
+      /*!
+ * reveal.js
+ * http://revealjs.com
+ * MIT licensed
+ *
+ * Copyright (C) 2018 Hakim El Hattab, http://hakim.se
+ */
+/*********************************************
+ * RESET STYLES
+ *********************************************/
+html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal iframe,
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6, .reveal p, .reveal blockquote, .reveal pre,
+.reveal a, .reveal abbr, .reveal acronym, .reveal address, .reveal big, .reveal cite, .reveal code,
+.reveal del, .reveal dfn, .reveal em, .reveal img, .reveal ins, .reveal kbd, .reveal q, .reveal s, .reveal samp,
+.reveal small, .reveal strike, .reveal strong, .reveal sub, .reveal sup, .reveal tt, .reveal var,
+.reveal b, .reveal u, .reveal center,
+.reveal dl, .reveal dt, .reveal dd, .reveal ol, .reveal ul, .reveal li,
+.reveal fieldset, .reveal form, .reveal label, .reveal legend,
+.reveal table, .reveal caption, .reveal tbody, .reveal tfoot, .reveal thead, .reveal tr, .reveal th, .reveal td,
+.reveal article, .reveal aside, .reveal canvas, .reveal details, .reveal embed,
+.reveal figure, .reveal figcaption, .reveal footer, .reveal header, .reveal hgroup,
+.reveal menu, .reveal nav, .reveal output, .reveal ruby, .reveal section, .reveal summary,
+.reveal time, .reveal mark, .reveal audio, .reveal video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  /* font: inherit; */
+  vertical-align: baseline; }
+
+.reveal article, .reveal aside, .reveal details, .reveal figcaption, .reveal figure,
+.reveal footer, .reveal header, .reveal hgroup, .reveal menu, .reveal nav, .reveal section {
+  display: block; }
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+ }
+
+body {
+  position: relative;
+  line-height: 1;
+  background-color: #fff;
+  color: #000;}
+
+#logo {
+  background-image: url(imag/logo.png)
+}
+
+/*********************************************
+ * VIEW FRAGMENTS
+ *********************************************/
+.reveal .slides section .fragment {
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s ease; }
+  .reveal .slides section .fragment.visible {
+    opacity: 1;
+    visibility: inherit; }
+
+.reveal .slides section .fragment.grow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.grow.visible {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3); }
+
+.reveal .slides section .fragment.shrink {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.shrink.visible {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); }
+
+.reveal .slides section .fragment.zoom-in {
+  -webkit-transform: scale(0.1);
+          transform: scale(0.1); }
+  .reveal .slides section .fragment.zoom-in.visible {
+    -webkit-transform: none;
+            transform: none; }
+
+.reveal .slides section .fragment.fade-out {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.fade-out.visible {
+    opacity: 0;
+    visibility: hidden; }
+
+.reveal .slides section .fragment.semi-fade-out {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.semi-fade-out.visible {
+    opacity: 0.5;
+    visibility: inherit; }
+
+.reveal .slides section .fragment.strike {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.strike.visible {
+    text-decoration: line-through; }
+
+.reveal .slides section .fragment.fade-up {
+  -webkit-transform: translate(0, 20%);
+          transform: translate(0, 20%); }
+  .reveal .slides section .fragment.fade-up.visible {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+
+.reveal .slides section .fragment.fade-down {
+  -webkit-transform: translate(0, -20%);
+          transform: translate(0, -20%); }
+  .reveal .slides section .fragment.fade-down.visible {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+
+.reveal .slides section .fragment.fade-right {
+  -webkit-transform: translate(-20%, 0);
+          transform: translate(-20%, 0); }
+  .reveal .slides section .fragment.fade-right.visible {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+
+.reveal .slides section .fragment.fade-left {
+  -webkit-transform: translate(20%, 0);
+          transform: translate(20%, 0); }
+  .reveal .slides section .fragment.fade-left.visible {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+
+.reveal .slides section .fragment.fade-in-then-out,
+.reveal .slides section .fragment.current-visible {
+  opacity: 0;
+  visibility: hidden; }
+  .reveal .slides section .fragment.fade-in-then-out.current-fragment,
+  .reveal .slides section .fragment.current-visible.current-fragment {
+    opacity: 1;
+    visibility: inherit; }
+
+.reveal .slides section .fragment.fade-in-then-semi-out {
+  opacity: 0;
+  visibility: hidden; }
+  .reveal .slides section .fragment.fade-in-then-semi-out.visible {
+    opacity: 0.5;
+    visibility: inherit; }
+  .reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
+    opacity: 1;
+    visibility: inherit; }
+
+.reveal .slides section .fragment.highlight-red,
+.reveal .slides section .fragment.highlight-current-red,
+.reveal .slides section .fragment.highlight-green,
+.reveal .slides section .fragment.highlight-current-green,
+.reveal .slides section .fragment.highlight-blue,
+.reveal .slides section .fragment.highlight-current-blue {
+  opacity: 1;
+  visibility: inherit; }
+
+.reveal .slides section .fragment.highlight-red.visible {
+  color: #ff2c2d; }
+
+.reveal .slides section .fragment.highlight-green.visible {
+  color: #17ff2e; }
+
+.reveal .slides section .fragment.highlight-blue.visible {
+  color: #1b91ff; }
+
+.reveal .slides section .fragment.highlight-current-red.current-fragment {
+  color: #ff2c2d; }
+
+.reveal .slides section .fragment.highlight-current-green.current-fragment {
+  color: #17ff2e; }
+
+.reveal .slides section .fragment.highlight-current-blue.current-fragment {
+  color: #1b91ff; }
+
+/*********************************************
+ * DEFAULT ELEMENT STYLES
+ *********************************************/
+/* Fixes issue in Chrome where italic fonts did not appear when printing to PDF */
+.reveal:after {
+  content: '';
+  font-style: italic; }
+
+.reveal iframe {
+  z-index: 1; }
+
+/** Prevents layering issues in certain browser/transition combinations */
+.reveal a {
+  position: relative; }
+  
+
+.reveal .stretch {
+  max-width: none;
+  max-height: none; }
+
+.reveal pre.stretch code {
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box; }
+
+
+
+/*********************************************
+ * CONTROLS
+ *********************************************/
+@-webkit-keyframes bounce-right {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+  30% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px); } }
+@keyframes bounce-right {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+  30% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px); } }
+
+@-webkit-keyframes bounce-down {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  20% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+  30% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
+@keyframes bounce-down {
+  0%, 10%, 25%, 40%, 50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  20% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+  30% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
+.reveal .controls {
+  display: none;
+  position: absolute;
+  top: auto;
+  bottom: 12px;
+  right: 12px;
+  left: auto;
+  z-index: 1;
+  color: #000;
+  pointer-events: none;
+  font-size: 10px; }
+  .reveal .controls button {
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: currentColor;
+    -webkit-transform: scale(0.9999);
+            transform: scale(0.9999);
+    transition: color 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+    pointer-events: auto;
+    font-size: inherit;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent; }
+  .reveal .controls .controls-arrow:before,
+  .reveal .controls .controls-arrow:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.6em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background-color: currentColor;
+    transition: all 0.15s ease, background-color 0.8s ease;
+    -webkit-transform-origin: 0.2em 50%;
+            transform-origin: 0.2em 50%;
+    will-change: transform; }
+  .reveal .controls .controls-arrow {
+    position: relative;
+    width: 3.6em;
+    height: 3.6em; }
+    .reveal .controls .controls-arrow:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
+    .reveal .controls .controls-arrow:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-45deg); }
+    .reveal .controls .controls-arrow:hover:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(40deg); }
+    .reveal .controls .controls-arrow:hover:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-40deg); }
+    .reveal .controls .controls-arrow:active:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(36deg); }
+    .reveal .controls .controls-arrow:active:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-36deg); }
+  .reveal .controls .navigate-left {
+    right: 6.4em;
+    bottom: 3.2em;
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px); }
+  .reveal .controls .navigate-right {
+    right: 0;
+    bottom: 3.2em;
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+    .reveal .controls .navigate-right .controls-arrow {
+      -webkit-transform: rotate(180deg);
+              transform: rotate(180deg); }
+    .reveal .controls .navigate-right.highlight {
+      -webkit-animation: bounce-right 2s 50 both ease-out;
+              animation: bounce-right 2s 50 both ease-out; }
+  .reveal .controls .navigate-up {
+    right: 3.2em;
+    bottom: 6.4em;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px); }
+    .reveal .controls .navigate-up .controls-arrow {
+      -webkit-transform: rotate(90deg);
+              transform: rotate(90deg); }
+  .reveal .controls .navigate-down {
+    right: 3.2em;
+    bottom: 0;
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+    .reveal .controls .navigate-down .controls-arrow {
+      -webkit-transform: rotate(-90deg);
+              transform: rotate(-90deg); }
+    .reveal .controls .navigate-down.highlight {
+      -webkit-animation: bounce-down 2s 50 both ease-out;
+              animation: bounce-down 2s 50 both ease-out; }
+  .reveal .controls[data-controls-back-arrows="faded"] .navigate-left.enabled,
+  .reveal .controls[data-controls-back-arrows="faded"] .navigate-up.enabled {
+    opacity: 0.3; }
+    .reveal .controls[data-controls-back-arrows="faded"] .navigate-left.enabled:hover,
+    .reveal .controls[data-controls-back-arrows="faded"] .navigate-up.enabled:hover {
+      opacity: 1; }
+  .reveal .controls[data-controls-back-arrows="hidden"] .navigate-left.enabled,
+  .reveal .controls[data-controls-back-arrows="hidden"] .navigate-up.enabled {
+    opacity: 0;
+    visibility: hidden; }
+  .reveal .controls .enabled {
+    visibility: visible;
+    opacity: 0.9;
+    cursor: pointer;
+    -webkit-transform: none;
+            transform: none; }
+  .reveal .controls .enabled.fragmented {
+    opacity: 0.5; }
+  .reveal .controls .enabled:hover,
+  .reveal .controls .enabled.fragmented:hover {
+    opacity: 1; }
+
+.reveal:not(.has-vertical-slides) .controls .navigate-left {
+  bottom: 1.4em;
+  right: 5.5em; }
+
+.reveal:not(.has-vertical-slides) .controls .navigate-right {
+  bottom: 1.4em;
+  right: 0.5em; }
+
+.reveal:not(.has-horizontal-slides) .controls .navigate-up {
+  right: 1.4em;
+  bottom: 5em; }
+
+.reveal:not(.has-horizontal-slides) .controls .navigate-down {
+  right: 1.4em;
+  bottom: 0.5em; }
+
+.reveal.has-dark-background .controls {
+  color: #fff; }
+
+.reveal.has-light-background .controls {
+  color: #000; }
+
+.reveal.no-hover .controls .controls-arrow:hover:before,
+.reveal.no-hover .controls .controls-arrow:active:before {
+  -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+          transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
+
+.reveal.no-hover .controls .controls-arrow:hover:after,
+.reveal.no-hover .controls .controls-arrow:active:after {
+  -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+          transform: translateX(0.5em) translateY(1.55em) rotate(-45deg); }
+
+@media screen and (min-width: 500px) {
+  .reveal .controls[data-controls-layout="edges"] {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-left,
+  .reveal .controls[data-controls-layout="edges"] .navigate-right,
+  .reveal .controls[data-controls-layout="edges"] .navigate-up,
+  .reveal .controls[data-controls-layout="edges"] .navigate-down {
+    bottom: auto;
+    right: auto; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-left {
+    top: 50%;
+    left: 8px;
+    margin-top: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-right {
+    top: 50%;
+    right: 8px;
+    margin-top: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-up {
+    top: 8px;
+    left: 50%;
+    margin-left: -1.8em; }
+  .reveal .controls[data-controls-layout="edges"] .navigate-down {
+    bottom: 8px;
+    left: 50%;
+    margin-left: -1.8em; } }
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+.reveal .progress {
+  position: absolute;
+  display: none;
+  height: 3px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff; }
+
+.reveal .progress:after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  top: -10px; }
+
+.reveal .progress span {
+  display: block;
+  height: 100%;
+  width: 0px;
+  background-color: currentColor;
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/*********************************************
+ * SLIDE NUMBER
+ *********************************************/
+.reveal .slide-number {
+  position: absolute;
+  display: block;
+  right: 8px;
+  bottom: 8px;
+  z-index: 31;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  color: rgb(0, 0, 0);
+  background-color: rgb(168, 168, 168);
+  padding: 5px; }
+
+.reveal .slide-number a {
+  color: currentColor; }
+
+.reveal .slide-number-delimiter {
+  margin: 0 3px; }
+
+/*********************************************
+ * SLIDES
+ *********************************************/
+.reveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -ms-touch-action: none;
+      touch-action: none; }
+
+@media only screen and (orientation: landscape) {
+  .reveal.ua-iphone {
+    position: fixed; } }
+
+.reveal .slides {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+  text-align: center;
+  -webkit-perspective: 600px;
+          perspective: 600px;
+  -webkit-perspective-origin: 50% 40%;
+          perspective-origin: 50% 40%; }
+
+.reveal .slides > section {
+  -ms-perspective: 600px; }
+
+.reveal .slides > section,
+.reveal .slides > section > section {
+  display: none;
+  position: absolute;
+  width: 100%;
+  padding: 20px 0px;
+  pointer-events: auto;
+  z-index: 10;
+  -webkit-transform-style: flat;
+          transform-style: flat;
+  transition: -webkit-transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), -webkit-transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/* Global transition speed settings */
+.reveal[data-transition-speed="fast"] .slides section {
+  transition-duration: 400ms; }
+
+.reveal[data-transition-speed="slow"] .slides section {
+  transition-duration: 1200ms; }
+
+/* Slide-specific transition speed overrides */
+.reveal .slides section[data-transition-speed="fast"] {
+  transition-duration: 400ms; }
+
+.reveal .slides section[data-transition-speed="slow"] {
+  transition-duration: 1200ms; }
+
+.reveal .slides > section.stack {
+  padding-top: 0;
+  padding-bottom: 0;
+  pointer-events: none; }
+
+.reveal .slides > section.present,
+.reveal .slides > section > section.present {
+  display: block;
+  z-index: 11;
+  opacity: 1; }
+
+.reveal .slides > section:empty,
+.reveal .slides > section > section:empty,
+.reveal .slides > section[data-background-interactive],
+.reveal .slides > section > section[data-background-interactive] {
+  pointer-events: none; }
+
+.reveal.center,
+.reveal.center .slides,
+.reveal.center .slides section {
+  min-height: 0 !important; }
+
+/* Don't allow interaction with invisible slides */
+.reveal .slides > section.future,
+.reveal .slides > section > section.future,
+.reveal .slides > section.past,
+.reveal .slides > section > section.past {
+  pointer-events: none; }
+
+.reveal.overview .slides > section,
+.reveal.overview .slides > section > section {
+  pointer-events: auto; }
+
+.reveal .slides > section.past,
+.reveal .slides > section.future,
+.reveal .slides > section > section.past,
+.reveal .slides > section > section.future {
+  opacity: 0; }
+
+/*********************************************
+ * Mixins for readability of transitions
+ *********************************************/
+/*********************************************
+ * SLIDE TRANSITION
+ * Aliased 'linear' for backwards compatibility
+ *********************************************/
+.reveal.slide section {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
+.reveal .slides > section[data-transition=slide].past,
+.reveal .slides > section[data-transition~=slide-out].past,
+.reveal.slide .slides > section:not([data-transition]).past {
+  -webkit-transform: translate(-150%, 0);
+          transform: translate(-150%, 0); }
+
+.reveal .slides > section[data-transition=slide].future,
+.reveal .slides > section[data-transition~=slide-in].future,
+.reveal.slide .slides > section:not([data-transition]).future {
+  -webkit-transform: translate(150%, 0);
+          transform: translate(150%, 0); }
+
+.reveal .slides > section > section[data-transition=slide].past,
+.reveal .slides > section > section[data-transition~=slide-out].past,
+.reveal.slide .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate(0, -150%);
+          transform: translate(0, -150%); }
+
+.reveal .slides > section > section[data-transition=slide].future,
+.reveal .slides > section > section[data-transition~=slide-in].future,
+.reveal.slide .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate(0, 150%);
+          transform: translate(0, 150%); }
+
+.reveal.linear section {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
+.reveal .slides > section[data-transition=linear].past,
+.reveal .slides > section[data-transition~=linear-out].past,
+.reveal.linear .slides > section:not([data-transition]).past {
+  -webkit-transform: translate(-150%, 0);
+          transform: translate(-150%, 0); }
+
+.reveal .slides > section[data-transition=linear].future,
+.reveal .slides > section[data-transition~=linear-in].future,
+.reveal.linear .slides > section:not([data-transition]).future {
+  -webkit-transform: translate(150%, 0);
+          transform: translate(150%, 0); }
+
+.reveal .slides > section > section[data-transition=linear].past,
+.reveal .slides > section > section[data-transition~=linear-out].past,
+.reveal.linear .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate(0, -150%);
+          transform: translate(0, -150%); }
+
+.reveal .slides > section > section[data-transition=linear].future,
+.reveal .slides > section > section[data-transition~=linear-in].future,
+.reveal.linear .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate(0, 150%);
+          transform: translate(0, 150%); }
+
+/*********************************************
+ * CONVEX TRANSITION
+ * Aliased 'default' for backwards compatibility
+ *********************************************/
+.reveal .slides section[data-transition=default].stack,
+.reveal.default .slides section.stack {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
+.reveal .slides > section[data-transition=default].past,
+.reveal .slides > section[data-transition~=default-out].past,
+.reveal.default .slides > section:not([data-transition]).past {
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0); }
+
+.reveal .slides > section[data-transition=default].future,
+.reveal .slides > section[data-transition~=default-in].future,
+.reveal.default .slides > section:not([data-transition]).future {
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0); }
+
+.reveal .slides > section > section[data-transition=default].past,
+.reveal .slides > section > section[data-transition~=default-out].past,
+.reveal.default .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate3d(0, -300px, 0) rotateX(70deg) translate3d(0, -300px, 0);
+          transform: translate3d(0, -300px, 0) rotateX(70deg) translate3d(0, -300px, 0); }
+
+.reveal .slides > section > section[data-transition=default].future,
+.reveal .slides > section > section[data-transition~=default-in].future,
+.reveal.default .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate3d(0, 300px, 0) rotateX(-70deg) translate3d(0, 300px, 0);
+          transform: translate3d(0, 300px, 0) rotateX(-70deg) translate3d(0, 300px, 0); }
+
+.reveal .slides section[data-transition=convex].stack,
+.reveal.convex .slides section.stack {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
+.reveal .slides > section[data-transition=convex].past,
+.reveal .slides > section[data-transition~=convex-out].past,
+.reveal.convex .slides > section:not([data-transition]).past {
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0); }
+
+.reveal .slides > section[data-transition=convex].future,
+.reveal .slides > section[data-transition~=convex-in].future,
+.reveal.convex .slides > section:not([data-transition]).future {
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0); }
+
+.reveal .slides > section > section[data-transition=convex].past,
+.reveal .slides > section > section[data-transition~=convex-out].past,
+.reveal.convex .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate3d(0, -300px, 0) rotateX(70deg) translate3d(0, -300px, 0);
+          transform: translate3d(0, -300px, 0) rotateX(70deg) translate3d(0, -300px, 0); }
+
+.reveal .slides > section > section[data-transition=convex].future,
+.reveal .slides > section > section[data-transition~=convex-in].future,
+.reveal.convex .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate3d(0, 300px, 0) rotateX(-70deg) translate3d(0, 300px, 0);
+          transform: translate3d(0, 300px, 0) rotateX(-70deg) translate3d(0, 300px, 0); }
+
+/*********************************************
+ * CONCAVE TRANSITION
+ *********************************************/
+.reveal .slides section[data-transition=concave].stack,
+.reveal.concave .slides section.stack {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
+.reveal .slides > section[data-transition=concave].past,
+.reveal .slides > section[data-transition~=concave-out].past,
+.reveal.concave .slides > section:not([data-transition]).past {
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(90deg) translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0) rotateY(90deg) translate3d(-100%, 0, 0); }
+
+.reveal .slides > section[data-transition=concave].future,
+.reveal .slides > section[data-transition~=concave-in].future,
+.reveal.concave .slides > section:not([data-transition]).future {
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(-90deg) translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0) rotateY(-90deg) translate3d(100%, 0, 0); }
+
+.reveal .slides > section > section[data-transition=concave].past,
+.reveal .slides > section > section[data-transition~=concave-out].past,
+.reveal.concave .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate3d(0, -80%, 0) rotateX(-70deg) translate3d(0, -80%, 0);
+          transform: translate3d(0, -80%, 0) rotateX(-70deg) translate3d(0, -80%, 0); }
+
+.reveal .slides > section > section[data-transition=concave].future,
+.reveal .slides > section > section[data-transition~=concave-in].future,
+.reveal.concave .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate3d(0, 80%, 0) rotateX(70deg) translate3d(0, 80%, 0);
+          transform: translate3d(0, 80%, 0) rotateX(70deg) translate3d(0, 80%, 0); }
+
+/*********************************************
+ * ZOOM TRANSITION
+ *********************************************/
+.reveal .slides section[data-transition=zoom],
+.reveal.zoom .slides section:not([data-transition]) {
+  transition-timing-function: ease; }
+
+.reveal .slides > section[data-transition=zoom].past,
+.reveal .slides > section[data-transition~=zoom-out].past,
+.reveal.zoom .slides > section:not([data-transition]).past {
+  visibility: hidden;
+  -webkit-transform: scale(16);
+          transform: scale(16); }
+
+.reveal .slides > section[data-transition=zoom].future,
+.reveal .slides > section[data-transition~=zoom-in].future,
+.reveal.zoom .slides > section:not([data-transition]).future {
+  visibility: hidden;
+  -webkit-transform: scale(0.2);
+          transform: scale(0.2); }
+
+.reveal .slides > section > section[data-transition=zoom].past,
+.reveal .slides > section > section[data-transition~=zoom-out].past,
+.reveal.zoom .slides > section > section:not([data-transition]).past {
+  -webkit-transform: translate(0, -150%);
+          transform: translate(0, -150%); }
+
+.reveal .slides > section > section[data-transition=zoom].future,
+.reveal .slides > section > section[data-transition~=zoom-in].future,
+.reveal.zoom .slides > section > section:not([data-transition]).future {
+  -webkit-transform: translate(0, 150%);
+          transform: translate(0, 150%); }
+
+/*********************************************
+ * CUBE TRANSITION
+ *
+ * WARNING:
+ * this is deprecated and will be removed in a
+ * future version.
+ *********************************************/
+.reveal.cube .slides {
+  -webkit-perspective: 1300px;
+          perspective: 1300px; }
+
+.reveal.cube .slides section {
+  padding: 30px;
+  min-height: 700px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  box-sizing: border-box;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
+.reveal.center.cube .slides section {
+  min-height: 0; }
+
+.reveal.cube .slides section:not(.stack):before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  -webkit-transform: translateZ(-20px);
+          transform: translateZ(-20px); }
+
+.reveal.cube .slides section:not(.stack):after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 90%;
+  height: 30px;
+  left: 5%;
+  bottom: 0;
+  background: none;
+  z-index: 1;
+  border-radius: 4px;
+  box-shadow: 0px 95px 25px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateZ(-90px) rotateX(65deg);
+          transform: translateZ(-90px) rotateX(65deg); }
+
+.reveal.cube .slides > section.stack {
+  padding: 0;
+  background: none; }
+
+.reveal.cube .slides > section.past {
+  -webkit-transform-origin: 100% 0%;
+          transform-origin: 100% 0%;
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg);
+          transform: translate3d(-100%, 0, 0) rotateY(-90deg); }
+
+.reveal.cube .slides > section.future {
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg);
+          transform: translate3d(100%, 0, 0) rotateY(90deg); }
+
+.reveal.cube .slides > section > section.past {
+  -webkit-transform-origin: 0% 100%;
+          transform-origin: 0% 100%;
+  -webkit-transform: translate3d(0, -100%, 0) rotateX(90deg);
+          transform: translate3d(0, -100%, 0) rotateX(90deg); }
+
+.reveal.cube .slides > section > section.future {
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+  -webkit-transform: translate3d(0, 100%, 0) rotateX(-90deg);
+          transform: translate3d(0, 100%, 0) rotateX(-90deg); }
+
+/*********************************************
+ * PAGE TRANSITION
+ *
+ * WARNING:
+ * this is deprecated and will be removed in a
+ * future version.
+ *********************************************/
+.reveal.page .slides {
+  -webkit-perspective-origin: 0% 50%;
+          perspective-origin: 0% 50%;
+  -webkit-perspective: 3000px;
+          perspective: 3000px; }
+
+.reveal.page .slides section {
+  padding: 30px;
+  min-height: 700px;
+  box-sizing: border-box;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d; }
+
+.reveal.page .slides section.past {
+  z-index: 12; }
+
+.reveal.page .slides section:not(.stack):before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-transform: translateZ(-20px);
+          transform: translateZ(-20px); }
+
+.reveal.page .slides section:not(.stack):after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 90%;
+  height: 30px;
+  left: 5%;
+  bottom: 0;
+  background: none;
+  z-index: 1;
+  border-radius: 4px;
+  box-shadow: 0px 95px 25px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateZ(-90px) rotateX(65deg); }
+
+.reveal.page .slides > section.stack {
+  padding: 0;
+  background: none; }
+
+.reveal.page .slides > section.past {
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+  -webkit-transform: translate3d(-40%, 0, 0) rotateY(-80deg);
+          transform: translate3d(-40%, 0, 0) rotateY(-80deg); }
+
+.reveal.page .slides > section.future {
+  -webkit-transform-origin: 100% 0%;
+          transform-origin: 100% 0%;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0); }
+
+.reveal.page .slides > section > section.past {
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+  -webkit-transform: translate3d(0, -40%, 0) rotateX(80deg);
+          transform: translate3d(0, -40%, 0) rotateX(80deg); }
+
+.reveal.page .slides > section > section.future {
+  -webkit-transform-origin: 0% 100%;
+          transform-origin: 0% 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0); }
+
+/*********************************************
+ * FADE TRANSITION
+ *********************************************/
+.reveal .slides section[data-transition=fade],
+.reveal.fade .slides section:not([data-transition]),
+.reveal.fade .slides > section > section:not([data-transition]) {
+  -webkit-transform: none;
+          transform: none;
+  transition: opacity 0.5s; }
+
+.reveal.fade.overview .slides section,
+.reveal.fade.overview .slides > section > section {
+  transition: none; }
+
+/*********************************************
+ * NO TRANSITION
+ *********************************************/
+.reveal .slides section[data-transition=none],
+.reveal.none .slides section:not([data-transition]) {
+  -webkit-transform: none;
+          transform: none;
+  transition: none; }
+
+/*********************************************
+ * PAUSED MODE
+ *********************************************/
+.reveal .pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 100;
+  transition: all 1s ease; }
+
+.reveal .pause-overlay .resume-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #ccc;
+  border-radius: 2px;
+  padding: 6px 14px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  background: transparent;
+  cursor: pointer; }
+  .reveal .pause-overlay .resume-button:hover {
+    color: #fff;
+    border-color: #fff; }
+
+.reveal.paused .pause-overlay {
+  visibility: visible;
+  opacity: 1; }
+
+/*********************************************
+ * FALLBACK
+ *********************************************/
+.no-transforms {
+  overflow-y: auto; }
+
+.no-transforms .reveal .slides {
+  position: relative;
+  width: 80%;
+  height: auto !important;
+  top: 0;
+  left: 50%;
+  margin: 0;
+  text-align: center; }
+
+.no-transforms .reveal .controls,
+.no-transforms .reveal .progress {
+  display: none !important; }
+
+.no-transforms .reveal .slides section {
+  display: block !important;
+  opacity: 1 !important;
+  position: relative !important;
+  height: auto;
+  min-height: 0;
+  top: 0;
+  left: -50%;
+  margin: 70px 0;
+  -webkit-transform: none;
+          transform: none; }
+
+.no-transforms .reveal .slides section section {
+  left: 0; }
+
+.reveal .no-transition,
+.reveal .no-transition * {
+  transition: none !important; }
+
+/*********************************************
+ * PER-SLIDE BACKGROUNDS
+ *********************************************/
+.reveal .backgrounds {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  -webkit-perspective: 600px;
+          perspective: 600px; }
+
+.reveal .slide-background {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  background-image: url("img/fondo1");
+  background-color: transparent;
+  transition: all 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+.reveal .slide-background-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;}
+  
+
+.reveal .slide-background.stack {
+  display: block; }
+
+.reveal .slide-background.present {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2; }
+
+.print-pdf .reveal .slide-background {
+  opacity: 1 !important;
+  visibility: visible !important; }
+
+/* Video backgrounds */
+.reveal .slide-background video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  top: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover; }
+
+.reveal .slide-background[data-background-size="contain"] video {
+  -o-object-fit: contain;
+     object-fit: contain; }
+
+/* Immediate transition style */
+.reveal[data-background-transition=none] > .backgrounds .slide-background,
+.reveal > .backgrounds .slide-background[data-background-transition=none] {
+  transition: none; }
+
+/* Slide */
+.reveal[data-background-transition=slide] > .backgrounds .slide-background,
+.reveal > .backgrounds .slide-background[data-background-transition=slide] {
+  opacity: 1;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
+.reveal[data-background-transition=slide] > .backgrounds .slide-background.past,
+.reveal > .backgrounds .slide-background.past[data-background-transition=slide] {
+  -webkit-transform: translate(-100%, 0);
+          transform: translate(-100%, 0); }
+
+.reveal[data-background-transition=slide] > .backgrounds .slide-background.future,
+.reveal > .backgrounds .slide-background.future[data-background-transition=slide] {
+  -webkit-transform: translate(100%, 0);
+          transform: translate(100%, 0); }
+
+.reveal[data-background-transition=slide] > .backgrounds .slide-background > .slide-background.past,
+.reveal > .backgrounds .slide-background > .slide-background.past[data-background-transition=slide] {
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%); }
+
+.reveal[data-background-transition=slide] > .backgrounds .slide-background > .slide-background.future,
+.reveal > .backgrounds .slide-background > .slide-background.future[data-background-transition=slide] {
+  -webkit-transform: translate(0, 100%);
+          transform: translate(0, 100%); }
+
+/* Convex */
+.reveal[data-background-transition=convex] > .backgrounds .slide-background.past,
+.reveal > .backgrounds .slide-background.past[data-background-transition=convex] {
+  opacity: 0;
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0); }
+
+.reveal[data-background-transition=convex] > .backgrounds .slide-background.future,
+.reveal > .backgrounds .slide-background.future[data-background-transition=convex] {
+  opacity: 0;
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0); }
+
+.reveal[data-background-transition=convex] > .backgrounds .slide-background > .slide-background.past,
+.reveal > .backgrounds .slide-background > .slide-background.past[data-background-transition=convex] {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -100%, 0) rotateX(90deg) translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0) rotateX(90deg) translate3d(0, -100%, 0); }
+
+.reveal[data-background-transition=convex] > .backgrounds .slide-background > .slide-background.future,
+.reveal > .backgrounds .slide-background > .slide-background.future[data-background-transition=convex] {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0) rotateX(-90deg) translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0) rotateX(-90deg) translate3d(0, 100%, 0); }
+
+/* Concave */
+.reveal[data-background-transition=concave] > .backgrounds .slide-background.past,
+.reveal > .backgrounds .slide-background.past[data-background-transition=concave] {
+  opacity: 0;
+  -webkit-transform: translate3d(-100%, 0, 0) rotateY(90deg) translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0) rotateY(90deg) translate3d(-100%, 0, 0); }
+
+.reveal[data-background-transition=concave] > .backgrounds .slide-background.future,
+.reveal > .backgrounds .slide-background.future[data-background-transition=concave] {
+  opacity: 0;
+  -webkit-transform: translate3d(100%, 0, 0) rotateY(-90deg) translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0) rotateY(-90deg) translate3d(100%, 0, 0); }
+
+.reveal[data-background-transition=concave] > .backgrounds .slide-background > .slide-background.past,
+.reveal > .backgrounds .slide-background > .slide-background.past[data-background-transition=concave] {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -100%, 0) rotateX(-90deg) translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0) rotateX(-90deg) translate3d(0, -100%, 0); }
+
+.reveal[data-background-transition=concave] > .backgrounds .slide-background > .slide-background.future,
+.reveal > .backgrounds .slide-background > .slide-background.future[data-background-transition=concave] {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0) rotateX(90deg) translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0) rotateX(90deg) translate3d(0, 100%, 0); }
+
+/* Zoom */
+.reveal[data-background-transition=zoom] > .backgrounds .slide-background,
+.reveal > .backgrounds .slide-background[data-background-transition=zoom] {
+  transition-timing-function: ease; }
+
+.reveal[data-background-transition=zoom] > .backgrounds .slide-background.past,
+.reveal > .backgrounds .slide-background.past[data-background-transition=zoom] {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(16);
+          transform: scale(16); }
+
+.reveal[data-background-transition=zoom] > .backgrounds .slide-background.future,
+.reveal > .backgrounds .slide-background.future[data-background-transition=zoom] {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.2);
+          transform: scale(0.2); }
+
+.reveal[data-background-transition=zoom] > .backgrounds .slide-background > .slide-background.past,
+.reveal > .backgrounds .slide-background > .slide-background.past[data-background-transition=zoom] {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(16);
+          transform: scale(16); }
+
+.reveal[data-background-transition=zoom] > .backgrounds .slide-background > .slide-background.future,
+.reveal > .backgrounds .slide-background > .slide-background.future[data-background-transition=zoom] {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.2);
+          transform: scale(0.2); }
+
+/* Global transition speed settings */
+.reveal[data-transition-speed="fast"] > .backgrounds .slide-background {
+  transition-duration: 400ms; }
+
+.reveal[data-transition-speed="slow"] > .backgrounds .slide-background {
+  transition-duration: 1200ms; }
+
+/*********************************************
+ * OVERVIEW
+ *********************************************/
+.reveal.overview {
+  -webkit-perspective-origin: 50% 50%;
+          perspective-origin: 50% 50%;
+  -webkit-perspective: 700px;
+          perspective: 700px; }
+  .reveal.overview .slides {
+    -moz-transform-style: preserve-3d; }
+  .reveal.overview .slides section {
+    height: 100%;
+    top: 0 !important;
+    opacity: 1 !important;
+    overflow: hidden;
+    visibility: visible !important;
+    cursor: pointer;
+    box-sizing: border-box; }
+  .reveal.overview .slides section:hover,
+  .reveal.overview .slides section.present {
+    outline: 10px solid rgba(150, 150, 150, 0.4);
+    outline-offset: 10px; }
+  .reveal.overview .slides section .fragment {
+    opacity: 1;
+    transition: none; }
+  .reveal.overview .slides section:after,
+  .reveal.overview .slides section:before {
+    display: none !important; }
+  .reveal.overview .slides > section.stack {
+    padding: 0;
+    top: 0 !important;
+    background: none;
+    outline: none;
+    overflow: visible; }
+  .reveal.overview .backgrounds {
+    -webkit-perspective: inherit;
+            perspective: inherit;
+    -moz-transform-style: preserve-3d; }
+  .reveal.overview .backgrounds .slide-background {
+    opacity: 1;
+    visibility: visible;
+    outline: 10px solid rgba(150, 150, 150, 0.1);
+    outline-offset: 10px; }
+  .reveal.overview .backgrounds .slide-background.stack {
+    overflow: visible; }
+
+.reveal.overview .slides section,
+.reveal.overview-deactivating .slides section {
+  transition: none; }
+
+.reveal.overview .backgrounds .slide-background,
+.reveal.overview-deactivating .backgrounds .slide-background {
+  transition: none; }
+
+/*********************************************
+ * RTL SUPPORT
+ *********************************************/
+.reveal.rtl .slides,
+.reveal.rtl .slides h1,
+.reveal.rtl .slides h2,
+.reveal.rtl .slides h3,
+.reveal.rtl .slides h4,
+.reveal.rtl .slides h5,
+.reveal.rtl .slides h6 {
+  direction: rtl;
+  font-family: sans-serif; }
+
+.reveal.rtl pre,
+.reveal.rtl code {
+  direction: ltr; }
+
+.reveal.rtl ol,
+.reveal.rtl ul {
+  text-align: right; }
+
+.reveal.rtl .progress span {
+  float: right; }
+
+/*********************************************
+ * PARALLAX BACKGROUND
+ *********************************************/
+.reveal.has-parallax-background .backgrounds {
+  transition: all 0.8s ease; }
+
+/* Global transition speed settings */
+.reveal.has-parallax-background[data-transition-speed="fast"] .backgrounds {
+  transition-duration: 400ms; }
+
+.reveal.has-parallax-background[data-transition-speed="slow"] .backgrounds {
+  transition-duration: 1200ms; }
+
+/*********************************************
+ * LINK PREVIEW OVERLAY
+ *********************************************/
+.reveal .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease; }
+
+.reveal .overlay.visible {
+  opacity: 1;
+  visibility: visible; }
+
+.reveal .overlay .spinner {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  z-index: 10;
+  background-image: url(data:image/gif;base64,R0lGODlhIAAgAPMAAJmZmf%2F%2F%2F6%2Bvr8nJybW1tcDAwOjo6Nvb26ioqKOjo7Ozs%2FLy8vz8%2FAAAAAAAAAAAACH%2FC05FVFNDQVBFMi4wAwEAAAAh%2FhpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh%2BQQJCgAAACwAAAAAIAAgAAAE5xDISWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBkCEDskxTBDAZwuAkkqIfxIQyhBQBFvAQSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ%2FV%2FnmOM82XiHRLYKhKP1oZmADdEAAAh%2BQQJCgAAACwAAAAAIAAgAAAE6hDISWlZpOrNp1lGNRSdRpDUolIGw5RUYhhHukqFu8DsrEyqnWThGvAmhVlteBvojpTDDBUEIFwMFBRAmBkSgOrBFZogCASwBDEY%2FCZSg7GSE0gSCjQBMVG023xWBhklAnoEdhQEfyNqMIcKjhRsjEdnezB%2BA4k8gTwJhFuiW4dokXiloUepBAp5qaKpp6%2BHo7aWW54wl7obvEe0kRuoplCGepwSx2jJvqHEmGt6whJpGpfJCHmOoNHKaHx61WiSR92E4lbFoq%2BB6QDtuetcaBPnW6%2BO7wDHpIiK9SaVK5GgV543tzjgGcghAgAh%2BQQJCgAAACwAAAAAIAAgAAAE7hDISSkxpOrN5zFHNWRdhSiVoVLHspRUMoyUakyEe8PTPCATW9A14E0UvuAKMNAZKYUZCiBMuBakSQKG8G2FzUWox2AUtAQFcBKlVQoLgQReZhQlCIJesQXI5B0CBnUMOxMCenoCfTCEWBsJColTMANldx15BGs8B5wlCZ9Po6OJkwmRpnqkqnuSrayqfKmqpLajoiW5HJq7FL1Gr2mMMcKUMIiJgIemy7xZtJsTmsM4xHiKv5KMCXqfyUCJEonXPN2rAOIAmsfB3uPoAK%2B%2BG%2Bw48edZPK%2BM6hLJpQg484enXIdQFSS1u6UhksENEQAAIfkECQoAAAAsAAAAACAAIAAABOcQyEmpGKLqzWcZRVUQnZYg1aBSh2GUVEIQ2aQOE%2BG%2BcD4ntpWkZQj1JIiZIogDFFyHI0UxQwFugMSOFIPJftfVAEoZLBbcLEFhlQiqGp1Vd140AUklUN3eCA51C1EWMzMCezCBBmkxVIVHBWd3HHl9JQOIJSdSnJ0TDKChCwUJjoWMPaGqDKannasMo6WnM562R5YluZRwur0wpgqZE7NKUm%2BFNRPIhjBJxKZteWuIBMN4zRMIVIhffcgojwCF117i4nlLnY5ztRLsnOk%2BaV%2BoJY7V7m76PdkS4trKcdg0Zc0tTcKkRAAAIfkECQoAAAAsAAAAACAAIAAABO4QyEkpKqjqzScpRaVkXZWQEximw1BSCUEIlDohrft6cpKCk5xid5MNJTaAIkekKGQkWyKHkvhKsR7ARmitkAYDYRIbUQRQjWBwJRzChi9CRlBcY1UN4g0%2FVNB0AlcvcAYHRyZPdEQFYV8ccwR5HWxEJ02YmRMLnJ1xCYp0Y5idpQuhopmmC2KgojKasUQDk5BNAwwMOh2RtRq5uQuPZKGIJQIGwAwGf6I0JXMpC8C7kXWDBINFMxS4DKMAWVWAGYsAdNqW5uaRxkSKJOZKaU3tPOBZ4DuK2LATgJhkPJMgTwKCdFjyPHEnKxFCDhEAACH5BAkKAAAALAAAAAAgACAAAATzEMhJaVKp6s2nIkolIJ2WkBShpkVRWqqQrhLSEu9MZJKK9y1ZrqYK9WiClmvoUaF8gIQSNeF1Er4MNFn4SRSDARWroAIETg1iVwuHjYB1kYc1mwruwXKC9gmsJXliGxc%2BXiUCby9ydh1sOSdMkpMTBpaXBzsfhoc5l58Gm5yToAaZhaOUqjkDgCWNHAULCwOLaTmzswadEqggQwgHuQsHIoZCHQMMQgQGubVEcxOPFAcMDAYUA85eWARmfSRQCdcMe0zeP1AAygwLlJtPNAAL19DARdPzBOWSm1brJBi45soRAWQAAkrQIykShQ9wVhHCwCQCACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiRMDjI0Fd30%2FiI2UA5GSS5UDj2l6NoqgOgN4gksEBgYFf0FDqKgHnyZ9OX8HrgYHdHpcHQULXAS2qKpENRg7eAMLC7kTBaixUYFkKAzWAAnLC7FLVxLWDBLKCwaKTULgEwbLA4hJtOkSBNqITT3xEgfLpBtzE%2FjiuL04RGEBgwWhShRgQExHBAAh%2BQQJCgAAACwAAAAAIAAgAAAE7xDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfZiCqGk5dTESJeaOAlClzsJsqwiJwiqnFrb2nS9kmIcgEsjQydLiIlHehhpejaIjzh9eomSjZR%2BipslWIRLAgMDOR2DOqKogTB9pCUJBagDBXR6XB0EBkIIsaRsGGMMAxoDBgYHTKJiUYEGDAzHC9EACcUGkIgFzgwZ0QsSBcXHiQvOwgDdEwfFs0sDzt4S6BK4xYjkDOzn0unFeBzOBijIm1Dgmg5YFQwsCMjp1oJ8LyIAACH5BAkKAAAALAAAAAAgACAAAATwEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GGl6NoiPOH16iZKNlH6KmyWFOggHhEEvAwwMA0N9GBsEC6amhnVcEwavDAazGwIDaH1ipaYLBUTCGgQDA8NdHz0FpqgTBwsLqAbWAAnIA4FWKdMLGdYGEgraigbT0OITBcg5QwPT4xLrROZL6AuQAPUS7bxLpoWidY0JtxLHKhwwMJBTHgPKdEQAACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq%2BE71SRQeyqUToLA7VxF0JDyIQh%2FMVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GAULDJCRiXo1CpGXDJOUjY%2BYip9DhToJA4RBLwMLCwVDfRgbBAaqqoZ1XBMHswsHtxtFaH1iqaoGNgAIxRpbFAgfPQSqpbgGBqUD1wBXeCYp1AYZ19JJOYgH1KwA4UBvQwXUBxPqVD9L3sbp2BNk2xvvFPJd%2BMFCN6HAAIKgNggY0KtEBAAh%2BQQJCgAAACwAAAAAIAAgAAAE6BDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfYIDMaAFdTESJeaEDAIMxYFqrOUaNW4E4ObYcCXaiBVEgULe0NJaxxtYksjh2NLkZISgDgJhHthkpU4mW6blRiYmZOlh4JWkDqILwUGBnE6TYEbCgevr0N1gH4At7gHiRpFaLNrrq8HNgAJA70AWxQIH1%2BvsYMDAzZQPC9VCNkDWUhGkuE5PxJNwiUK4UfLzOlD4WvzAHaoG9nxPi5d%2BjYUqfAhhykOFwJWiAAAIfkECQoAAAAsAAAAACAAIAAABPAQyElpUqnqzaciSoVkXVUMFaFSwlpOCcMYlErAavhOMnNLNo8KsZsMZItJEIDIFSkLGQoQTNhIsFehRww2CQLKF0tYGKYSg%2BygsZIuNqJksKgbfgIGepNo2cIUB3V1B3IvNiBYNQaDSTtfhhx0CwVPI0UJe0%2Bbm4g5VgcGoqOcnjmjqDSdnhgEoamcsZuXO1aWQy8KAwOAuTYYGwi7w5h%2BKr0SJ8MFihpNbx%2B4Erq7BYBuzsdiH1jCAzoSfl0rVirNbRXlBBlLX%2BBP0XJLAPGzTkAuAOqb0WT5AH7OcdCm5B8TgRwSRKIHQtaLCwg1RAAAOwAAAAAAAAAAAA%3D%3D);
+  visibility: visible;
+  opacity: 0.6;
+  transition: all 0.3s ease; }
+
+.reveal .overlay header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 2;
+  border-bottom: 1px solid #222; }
+
+.reveal .overlay header a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 36px;
+  padding: 0 10px;
+  float: right;
+  opacity: 0.6;
+  box-sizing: border-box; }
+
+.reveal .overlay header a:hover {
+  opacity: 1; }
+
+.reveal .overlay header a .icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: 50% 50%;
+  background-size: 100%;
+  background-repeat: no-repeat; }
+
+.reveal .overlay .footnote{
+ background-image: url(data:img\logo.png)
+
+}
+
+.reveal .overlay header a.close .icon {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABkklEQVRYR8WX4VHDMAxG6wnoJrABZQPYBCaBTWAD2g1gE5gg6OOsXuxIlr40d81dfrSJ9V4c2VLK7spHuTJ/5wpM07QXuXc5X0opX2tEJcadjHuV80li/FgxTIEK/5QBCICBD6xEhSMGHgQPgBgLiYVAB1dpSqKDawxTohFw4JSEA3clzgIBPCURwE2JucBR7rhPJJv5OpJwDX+SfDjgx1wACQeJG1aChP9K/IMmdZ8DtESV1WyP3Bt4MwM6sj4NMxMYiqUWHQu4KYA/SYkIjOsm3BXYWMKFDwU2khjCQ4ELJUJ4SmClRArOCmSXGuKma0fYD5CbzHxFpCSGAhfAVSSUGDUk2BWZaff2g6GE15BsBQ9nwmpIGDiyHQddwNTMKkbZaf9fajXQca1EX44puJZUsnY0ObGmITE3GVLCbEhQUjGVt146j6oasWN+49Vph2w1pZ5EansNZqKBm1txbU57iRRcZ86RWMDdWtBJUHBHwoQPi1GV+JCbntmvok7iTX4/Up9mgyTc/FJYDTcndgH/AA5A/CHsyEkVAAAAAElFTkSuQmCC); }
+
+.reveal .overlay header a.external .icon {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcElEQVRYR+2WSQoAIQwEzf8f7XiOMkUQxUPlGkM3hVmiQfQR9GYnH1SsAQlI4DiBqkCMoNb9y2e90IAEJPAcgdznU9+engMaeJ7Azh5Y1U67gAho4DqBqmB1buAf0MB1AlVBek83ZPkmJMGc1wAR+AAqod/B97TRpQAAAABJRU5ErkJggg==); }
+
+.reveal .overlay .viewport {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+.reveal .overlay.overlay-preview .viewport iframe {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease; }
+
+.reveal .overlay.overlay-preview.loaded .viewport iframe {
+  opacity: 1;
+  visibility: visible; }
+
+.reveal .overlay.overlay-preview.loaded .viewport-inner {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 45%;
+  width: 100%;
+  text-align: center;
+  letter-spacing: normal; }
+
+.reveal .overlay.overlay-preview .x-frame-error {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.3s; }
+
+.reveal .overlay.overlay-preview.loaded .x-frame-error {
+  opacity: 1; }
+
+.reveal .overlay.overlay-preview.loaded .spinner {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0.2);
+          transform: scale(0.2); }
+
+.reveal .overlay.overlay-help .viewport {
+  overflow: auto;
+  color: #fff; }
+
+.reveal .overlay.overlay-help .viewport .viewport-inner {
+  width: 600px;
+  margin: auto;
+  padding: 20px 20px 80px 20px;
+  text-align: center;
+  letter-spacing: normal; }
+
+.reveal .overlay.overlay-help .viewport .viewport-inner .title {
+  font-size: 20px; }
+
+.reveal .overlay.overlay-help .viewport .viewport-inner table {
+  border: 1px solid #fff;
+  border-collapse: collapse;
+  font-size: 16px; }
+
+.reveal .overlay.overlay-help .viewport .viewport-inner table th,
+.reveal .overlay.overlay-help .viewport .viewport-inner table td {
+  width: 200px;
+  padding: 14px;
+  border: 1px solid #fff;
+  vertical-align: middle; }
+
+.reveal .overlay.overlay-help .viewport .viewport-inner table th {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+
+/*********************************************
+ * PLAYBACK COMPONENT
+ *********************************************/
+.reveal .playback {
+  position: absolute;
+  left: 15px;
+  bottom: 20px;
+  z-index: 30;
+  cursor: pointer;
+  transition: all 400ms ease;
+  -webkit-tap-highlight-color: transparent; }
+
+.reveal.overview .playback {
+  opacity: 0;
+  visibility: hidden; }
+
+/*********************************************
+ * ROLLING LINKS
+ *********************************************/
+.reveal .roll {
+  display: inline-block;
+  line-height: 1.2;
+  overflow: hidden;
+  vertical-align: top;
+  -webkit-perspective: 400px;
+          perspective: 400px;
+  -webkit-perspective-origin: 50% 50%;
+          perspective-origin: 50% 50%; }
+
+.reveal .roll:hover {
+  background: none;
+  text-shadow: none; }
+
+.reveal .roll span {
+  display: block;
+  position: relative;
+  padding: 0 2px;
+  pointer-events: none;
+  transition: all 400ms ease;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
+.reveal .roll:hover span {
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translate3d(0px, 0px, -45px) rotateX(90deg);
+          transform: translate3d(0px, 0px, -45px) rotateX(90deg); }
+
+.reveal .roll span:after {
+  content: attr(data-title);
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 2px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+  -webkit-transform: translate3d(0px, 110%, 0px) rotateX(-90deg);
+          transform: translate3d(0px, 110%, 0px) rotateX(-90deg); }
+
+/*********************************************
+ * SPEAKER NOTES
+ *********************************************/
+.reveal aside.notes {
+  display: none; }
+
+.reveal .speaker-notes {
+  display: none;
+  position: absolute;
+  width: 25vw;
+  height: 100%;
+  top: 0;
+  left: 100%;
+  padding: 14px 18px 14px 18px;
+  z-index: 1;
+  font-size: 18px;
+  line-height: 1.4;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #222;
+  background-color: #f5f5f5;
+  overflow: auto;
+  box-sizing: border-box;
+  text-align: left;
+  font-family: Roboto, sans-serif;
+  -webkit-overflow-scrolling: touch; }
+  .reveal .speaker-notes .notes-placeholder {
+    color: #ccc;
+    font-style: italic; }
+  .reveal .speaker-notes:focus {
+    outline: none; }
+  .reveal .speaker-notes:before {
+    content: 'Speaker notes';
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.5; }
+
+.reveal.show-notes {
+  max-width: 75vw;
+  overflow: visible; }
+
+.reveal.show-notes .speaker-notes {
+  display: block; }
+
+@media screen and (min-width: 1600px) {
+  .reveal .speaker-notes {
+    font-size: 20px; } }
+
+@media screen and (max-width: 1024px) {
+  .reveal.show-notes {
+    border-left: 0;
+    max-width: none;
+    max-height: 70%;
+    overflow: visible; }
+  .reveal.show-notes .speaker-notes {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 42.8571428571%; } }
+
+@media screen and (max-width: 600px) {
+  .reveal.show-notes {
+    max-height: 60%; }
+  .reveal.show-notes .speaker-notes {
+    top: 100%;
+    height: 66.6666666667%; }
+  .reveal .speaker-notes {
+    font-size: 14px; } }
+
+/*********************************************
+ * ZOOM PLUGIN
+ *********************************************/
+.zoomed .reveal *,
+.zoomed .reveal *:before,
+.zoomed .reveal *:after {
+  -webkit-backface-visibility: visible !important;
+          backface-visibility: visible !important; }
+
+.zoomed .reveal .progress,
+.zoomed .reveal .controls {
+  opacity: 0; }
+
+.zoomed .reveal .roll span {
+  background: none; }
+
+.zoomed .reveal .roll span:after {
+  visibility: hidden; }
+
+/*********************************************
+ * FOOTER
+ *********************************************/
+
+
+.share-reveal .share-reveal-editor {
+    line-height: 30px;
+}
+.share-reveal a {
+    display: inline-block;
+    height: 34px;
+    line-height: 32px;
+    padding: 0 10px;
+    color: #fff;
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: top;
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+
+      </style>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/white.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+
+      <style>
+      /* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+abap+actionscript+ada+apacheconf+apl+applescript+asciidoc+aspnet+autoit+autohotkey+bash+basic+batch+c+brainfuck+bro+bison+csharp+cpp+coffeescript+ruby+css-extras+d+dart+django+diff+docker+eiffel+elixir+erlang+fsharp+fortran+gherkin+git+glsl+go+graphql+groovy+haml+handlebars+haskell+haxe+http+icon+inform7+ini+j+jade+java+jolie+json+julia+keyman+kotlin+latex+less+livescript+lolcode+lua+makefile+markdown+matlab+mel+mizar+monkey+nasm+nginx+nim+nix+nsis+objectivec+ocaml+oz+parigp+parser+pascal+perl+php+php-extras+powershell+processing+prolog+properties+protobuf+puppet+pure+python+q+qore+r+jsx+reason+rest+rip+roboconf+crystal+rust+sas+sass+scss+scala+scheme+smalltalk+smarty+sql+stylus+swift+tcl+textile+twig+typescript+vbnet+verilog+vhdl+vim+wiki+xojo+yaml */
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: 'Roboto', sans-serif;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+/* highlight */
+pre[data-line] {
+	position: relative;
+	padding: 1em 0 1em 3em;
+  }
+  pre[data-line] .line-highlight-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	display: block;
+	width: 100%;
+  }
+  
+  pre[data-line] .line-highlight {
+	position: absolute;
+	left: 0;
+	right: 0;
+	padding: inherit 0;
+	margin-top: 1em;
+	background: hsla(24, 20%, 50%,.08);
+	background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+	pointer-events: none;
+	line-height: inherit;
+	white-space: pre;
+  }
+  
+  pre[data-line] .line-highlight:before, 
+  pre[data-line] .line-highlight[data-end]:after {
+	content: attr(data-start);
+	position: absolute;
+	top: .4em;
+	left: .6em;
+	min-width: 1em;
+	padding: 0 .5em;
+	background-color: hsla(24, 20%, 50%,.4);
+	color: hsl(24, 20%, 95%);
+	font: bold 65%/1.5 sans-serif;
+	text-align: center;
+	vertical-align: .3em;
+	border-radius: 999px;
+	text-shadow: none;
+	box-shadow: 0 1px white;
+  }
+  
+  pre[data-line] .line-highlight[data-end]:after {
+	content: attr(data-end);
+	top: auto;
+	bottom: .4em;
+  }.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export" data-presentation-mode id="logo">
+      <div class="mume markdown-preview  " data-presentation-mode>
+    <div style="display:none;"></div>
+
+    <div class="reveal">
+      <div class="slides">
+        <section lineno="110" class="slide " data-line="110" data-h="0" data-v="0">
+
+<h1 class="mume-header" id="sistemas-de-informaci%C3%B3n-geogr%C3%A1fica">SISTEMAS DE INFORMACI&#xD3;N GEOGR&#xC1;FICA</h1>
+
+<h2 class="mume-header" id="programaci%C3%B3n-en-entorno-de-escritorio">PROGRAMACI&#xD3;N EN ENTORNO DE ESCRITORIO</h2>
+
+<hr>
+<h3 class="mume-header" id="javier-becerra-elcinto">Javier Becerra Elcinto</h3>
+
+<p><em><a href="mailto:javier@panoimagen.com">javier@panoimagen.com</a></em></p>
+<h3 class="mume-header" id="roberto-calvo-s%C3%A1enz">Roberto Calvo S&#xE1;enz</h3>
+
+<p><em><a href="mailto:roberto@panoimagen.com">roberto@panoimagen.com</a></em></p>
+<h3 class="mume-header" id="thinktic-_junio-2019_"><em>ThinkTic</em> - <em>Junio 2019</em></h3>
+
+</section><section lineno="125" class="slide " data-line="125" data-h="1" data-v="0">
+<h1 class="mume-header" id="sistemas-de-informaci%C3%B3n-geogr%C3%A1fica-1"><em>Sistemas de informaci&#xF3;n geogr&#xE1;fica</em></h1>
+
+<h2 class="mume-header" id="programaci%C3%B3n-en-entorno-de-escritorio-1">Programaci&#xF3;n en entorno de escritorio</h2>
+
+<h2 class="mume-header" id="programaci%C3%B3n-plugins-bibliotecas-qt">Programaci&#xF3;n Plugins: Bibliotecas Qt</h2>
+
+</section><section lineno="132" class="slide " data-line="132" data-h="2" data-v="0">
+<h1 class="mume-header" id="interfaces-de-usuario">Interfaces de usuario</h1>
+
+</section><section lineno="136" class="slide " data-line="136" data-h="3" data-v="0">
+<h2 class="mume-header" id="introducci%C3%B3n">Introducci&#xF3;n</h2>
+
+</section><section lineno="140" class="slide " data-line="140" data-h="4" data-v="0">
+<p><large><strong>GUI</strong></large><br>
+<large>Interfaz Gr&#xE1;fica de Usuario <em>(Graphical User Interface)</em></large><br>
+Conjunto de elementos gr&#xE1;ficos <em>interactivos</em> que nos permiten interactuar de forma sencilla con un ordenador.</p>
+</section><section lineno="146" class="slide " data-line="146" data-h="5" data-v="0">
+<h2 class="mume-header" id="wimp">WIMP</h2>
+
+</section><section lineno="149" class="slide " data-line="149" data-h="6" data-v="0">
+<p><a href="https://www.youtube.com/watch?v=yJDv-zdhzMY">La madre de todas las &apos;demos&apos; (Doug Engelbart, 1968)</a>, Stanford Research Institute</p>
+<p><a href="https://youtu.be/M0zgj2p7Ww4">Xerox Alto (1973)</a>, <em>Xerox PARC</em></p>
+<ul>
+<li><strong>W</strong>indows - ventanas.</li>
+<li><strong>I</strong>cons - iconos.</li>
+<li><strong>M</strong>enus - men&#xFA;s.</li>
+<li><strong>P</strong>ointers - punteros.</li>
+</ul>
+<p>Aunque los dispositivos t&#xE1;ctiles nos acercan cada vez m&#xE1;s a una interacci&#xF3;n <em>post-WIMP</em>, en las aplicaciones de escritorio el paradigma <em>WIMP</em> sigue vigente.</p>
+</section><section lineno="161" class="slide " data-line="161" data-h="7" data-v="0">
+<h2 class="mume-header" id="frameworks-en-python">Frameworks en Python</h2>
+
+</section><section lineno="164" class="slide " data-line="164" data-h="8" data-v="0">
+<p>Existen varios paquetes que nos permiten implementar una interfaz grafica en <em>Python</em>.</p>
+<p>Los m&#xE1;s populares son:</p>
+<ul>
+<li>[TCL/Tk] <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> <em>TKInter</em> distribuido con la mayor&#xED;a de implementaciones de <em>Python</em>.</li>
+<li>[Qt] <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span>  <em>PySide / PyQt</em> interfaces modernas en plataformas de escritorio y m&#xF3;viles. La base de <em>KDE</em></li>
+<li>[wxWidgets] <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> <em>wxPython</em> utilizado en muchas aplicaciones: <em>FileZilla</em>, <em>wxMaxima</em>, <em>Antivirus AVG</em>, ...</li>
+<li>[Gtk+] <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> <em>PyGObject</em> inicialmente desarrollada para <em>GIMP</em>, es la base de las interfaces <em>Gnome</em> en Linux.</li>
+<li>[FLTK] <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> <em>pyFLTK</em> ideal para interfaces con pocos recursos.</li>
+</ul>
+</section><section lineno="175" class="slide " data-line="175" data-h="9" data-v="0">
+<h1 class="mume-header" id="qt">Qt</h1>
+
+<p>En la actualidad es uno de los <em>frameworks</em> m&#xE1;s potentes y utilizados.</p>
+<p>Desde interfaces sencillas hasta modernas aplicaciones con animaciones y efectos de todo tipo.</p>
+<p>La base de la interfaz gr&#xE1;fica de QGIS.</p>
+</section><section lineno="185" class="slide " data-line="185" data-h="10" data-v="0">
+<h2 class="mume-header" id="historia">Historia</h2>
+
+<ul>
+<li><em>Trolltech</em> 1991-2008</li>
+<li><em>Nokia</em> 2008-2011</li>
+<li><em>Digia</em> 2012-2014</li>
+<li><em>The Qt Company</em> 2014-</li>
+</ul>
+<p>Licencias <em>GPL</em> y <em>LGPL</em>, licencias comerciales con soporte de <em>The Qt Company</em>.</p>
+<p>Un acuerdo entre <em>KDE</em> y <em>Trolltech</em> de 1998 asegura la continuidad del proyecto Qt bajo una licencia de c&#xF3;digo abierto permisiva (<em>BSD</em> o similar) en caso de que no realicen actualizaciones en un tiempo determinado.</p>
+</section><section lineno="198" class="slide " data-line="198" data-h="11" data-v="0">
+<h2 class="mume-header" id="introducci%C3%B3n-a-qt">Introducci&#xF3;n a Qt</h2>
+
+<p>Soporte multiplataforma (de escritorio y m&#xF3;viles) para el desarrollo de aplicaciones gr&#xE1;ficas y de consola.</p>
+<p>Incluye funcionalidad relativa a:</p>
+<ul>
+<li>GUIs.</li>
+<li>Comunicaciones de red.</li>
+<li>Serializaci&#xF3;n (xml, json, ...)</li>
+<li>Programaci&#xF3;n concurrente.</li>
+<li>Bases de datos SQL.</li>
+<li>Internacionalizaci&#xF3;n (I18n).</li>
+<li>Test unitarios (con soporte para elementos gr&#xE1;ficos).</li>
+</ul>
+</section><section lineno="213" class="slide " data-line="213" data-h="12" data-v="0">
+<p>Qt, al igual que QGIS est&#xE1; desarrollado en <em>C++</em>.</p>
+<p>Implementa un sistema de comunicaci&#xF3;n as&#xED;ncrono por se&#xF1;ales (emisi&#xF3;n de <em>se&#xF1;ales/signals</em> y recepci&#xF3;n en <em>ranuras</em>/<em>slots</em>).</p>
+<p>Para implementarlo utiliza un sistema de macros y un metacompilador, transparente para el programador pero que a&#xF1;ade adem&#xE1;s mecanismos de introspecci&#xF3;n y gesti&#xF3;n de punteros inteligentes.</p>
+<p>Existen <em>bindings</em> en distintos lenguajes de programaci&#xF3;n: <em>Python</em>, <em>C#</em>, <em>Java</em>, <em>PHP</em>, <em>Ruby</em>, <em>Haskell</em>, <em>Rust</em>, ...</p>
+</section><section lineno="224" class="slide " data-line="224" data-h="13" data-v="0">
+<h2 class="mume-header" id="versiones">Versiones</h2>
+
+</section><section lineno="227" class="slide " data-line="227" data-h="14" data-v="0">
+<p>Versiones estables:</p>
+<ul>
+<li>
+<p>Qt4: Utilizada en QGIS 2.x.</p>
+<ul>
+<li><em>4.8.7</em> es la &#xFA;ltima de la serie <em>Qt4.x</em>. <em>Alcanz&#xF3; el punto de fin de soporte en diciembre de 2015</em>.</li>
+</ul>
+</li>
+<li>
+<p>Qt5: Utilizada en QGIS 3.x.</p>
+<ul>
+<li><em>5.12LTS</em>: publicada en diciembre 2018.</li>
+</ul>
+</li>
+</ul>
+<p>La serie Qt5 mantiene la arquitectura de la serie 4, aunque se ha hecho un gran esfuerzo en el motor declarativo <em>QML</em> con soporte <em>Javascript</em>.</p>
+</section><section lineno="238" class="slide " data-line="238" data-h="15" data-v="0">
+<h2 class="mume-header" id="m%C3%B3duloshttpswwwriverbankcomputingcomstaticdocspyqt5module_indexhtmlref-module-index"><a href="https://www.riverbankcomputing.com/static/Docs/PyQt5/module_index.html#ref-module-index">M&#xF3;dulos</a></h2>
+
+<p>Los que m&#xE1;s nos van a interesar:</p>
+<ul>
+<li><strong>QtCore</strong> funcionalidad b&#xE1;sica, contiene la clase <em>QObject</em> de la que derivan casi todas las dem&#xE1;s clases.</li>
+<li><strong>QtGui</strong> funciones relacionadas con la interfaz gr&#xE1;fica, a excepci&#xF3;n de los <em>widgets</em>.</li>
+<li><strong>QtWidgets</strong>: elementos b&#xE1;sicos para la interfaz de usuario (i.e. widgets).</li>
+<li><strong>QtTest</strong>: tests unitarios.</li>
+<li><strong>uic</strong>: carga de interfaces desde ficheros <em>.ui</em>.</li>
+</ul>
+</section><section lineno="248" class="slide " data-line="248" data-h="16" data-v="0">
+<h1 class="mume-header" id="qt-con-python">Qt con Python</h1>
+
+<p>En la actualidad existen varios <em>bindings</em> que permiten utilizar Qt desde <em>Python</em>:</p>
+<ul>
+<li><strong>PyQt</strong> Desarrollado por RiverBank. Ofrece soporte para Qt4 (<code>PyQt4</code>) y Qt5 (<code>PyQt5</code>). Publicado bajo licencia <em>GPL</em> y comercial.</li>
+<li><strong>PySide</strong>: Bindings <em>oficiales</em>, desarrollados por <em>Nokia</em> y actualmente mantenidos por <em>The Qt Company</em>. Ofrece soporte para Qt4 (<code>pyside</code>), y Qt5 (<code>pyside2</code>). Licencias <em>GPL</em> y <em>LGPL</em>.</li>
+<li>[PyOtherSide] a&#xF1;ade soporte <em>Python3</em> al motor declarativo <em>QML</em> de Qt5. Licencia <em>ISC</em> (similar a <em>BSD/MIT</em>).</li>
+</ul>
+</section><section lineno="257" class="slide " data-line="257" data-h="17" data-v="0">
+<h1 class="mume-header" id="qgis-utiliza-los-bindings-_pyqt_">QGIS utiliza los bindings <em>PyQt</em></h1>
+
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token comment"># Desde QGIS</span>
+<span class="token keyword">from</span> qgis <span class="token keyword">import</span> PyQt  <span class="token comment"># utilizaremos PyQt4 en QGIS 2.x, PyQt5 en QGIS 3.x</span>
+
+<span class="token comment"># En aplicaciones independientes de QGIS</span>
+<span class="token keyword">import</span> PyQt5
+</pre></section><section lineno="266" class="slide " data-line="266" data-h="18" data-v="0">
+<h1 class="mume-header" id="pyqt">PyQt</h1>
+
+<h2 class="mume-header" id="nuestra-primera-gui">Nuestra primera GUI</h2>
+
+</section><section lineno="272" class="slide " data-line="272" data-h="19" data-v="0">
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> PyQt5<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> <span class="token punctuation">(</span>
+     QWidget<span class="token punctuation">,</span> QLabel<span class="token punctuation">,</span> QApplication<span class="token punctuation">,</span> QVBoxLayout<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Form</span><span class="token punctuation">(</span>QWidget<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Form<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>nameLabel <span class="token operator">=</span> QLabel<span class="token punctuation">(</span><span class="token string">&quot;&#xA1;Yuhuuu!&quot;</span><span class="token punctuation">)</span>       
+        self<span class="token punctuation">.</span>mainLayout <span class="token operator">=</span> QVBoxLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>mainLayout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nameLabel<span class="token punctuation">)</span>       
+        self<span class="token punctuation">.</span>setLayout<span class="token punctuation">(</span>self<span class="token punctuation">.</span>mainLayout<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">&quot;&#xA1;&#xA1;Hola!!&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">&apos;__main__&apos;</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> sys
+    app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+    screen <span class="token operator">=</span> Form<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    screen<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</pre><pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># En consola con instalaci&#xF3;n est&#xE1;ndar de Python</span>
+python script.py
+<span class="token comment"># En la consola OSGEO4W de QGIS:</span>
+python-qgis.bat script.py
+</pre></section><section lineno="302" class="slide " data-line="302" data-h="20" data-v="0">
+<p>Algunos apuntes sobre el programa anterior:</p>
+<ul>
+<li>Todas las aplicaciones Qt necesitan un objeto <code>QApplication</code>. (<code>QCoreApplication</code> para aplicaciones de consola).</li>
+<li>La llamada a <code>app.exec_()</code> lanza el bucle de ejecuci&#xF3;n principal.</li>
+<li>La clase <code>Form</code> es una clase derivada de <a href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qwidget.html">QWidget</a>.</li>
+<li>El objeto <code>QVBoxLayout</code> permite colocar varios <em>widgets</em> dentro del objeto <code>Form</code> que se distribuir&#xE1;n autom&#xE1;ticamente a lo largo del eje vertical (otros <em>layouts</em> son <code>QHBoxLayout</code> y <code>QGridLayout</code>).</li>
+</ul>
+</section><section data-background-image="img/question.png" lineno="310" class="slide " data-line="310" data-h="21" data-v="0">
+<ol>
+<li>Modificar el ejemplo anterior para que el constructor de <code>Form</code> (i.e. su funci&#xF3;n <code>__init__</code>) tome un par&#xE1;metro adicional <code>nombre</code>.</li>
+<li>A&#xF1;adir al <code>QVBoxLayout</code> una segunda etiqueta de texto que muestre ese <code>nombre</code>.</li>
+<li>&#xBF;Qu&#xE9; ocurre al reemplazar el <code>QVBoxLayout</code> con un <code>QHBoxLayout</code>?</li>
+<li>Utilizando el <code>QVBoxLayout</code> original, a&#xF1;adir un nuevo objeto de tipo <code>QWidget</code>. Asignar a dicho <em>widget</em> un <code>QHBoxLayout</code> que contenga 10 etiquetas de texto (<code>QLabel</code>) con los n&#xFA;meros del 1 al 10 respectivamente.</li>
+</ol>
+</section><section lineno="317" class="slide " data-line="317" data-h="22" data-v="0">
+<h2 class="mume-header" id="se%C3%B1ales-y-slots">Se&#xF1;ales y slots</h2>
+
+</section><section lineno="320" class="slide " data-line="320" data-h="23" data-v="0">
+<h1 class="mume-header" id="signals-y-slots">Signals y Slots</h1>
+
+<p>Hemos creado un par de aplicaciones con una interfaz gr&#xE1;fica muy sencilla, tanto, tanto... que no permiten ning&#xFA;n tipo de interacci&#xF3;n.</p>
+<p>En los ejemplos siguientes vamos a ver como incluir elementos interactivos y hacer que nuestra aplicaci&#xF3;n responda ante las acciones que ejecute el usuario.</p>
+<p>El mecanismo que permite la comunicaci&#xF3;n entre el usuario y nuestra aplicaci&#xF3;n se basa en el concepto de <strong>signals</strong> (se&#xF1;ales) y <strong>slots</strong> (conectores).</p>
+</section><section lineno="329" class="slide " data-line="329" data-h="24" data-v="0">
+<h2 class="mume-header" id="receta-para-una-interfaz-interactiva">Receta para una interfaz interactiva</h2>
+
+<p>El proceso (simplificado) es el siguiente:</p>
+<ol>
+<li>Creamos nuestra interfaz con elementos interactivos (por ejemplo, un <code>QPushButton</code>).</li>
+</ol>
+<pre data-role="codeBlock" data-info="python" class="language-python">app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+button <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre><ol>
+<li>Conectamos la se&#xF1;al <code>clicked</code> del bot&#xF3;n al <em>slot</em> que queramos ejecutar cuando se pulse (en Python, un <em>slot</em> es cualquier funci&#xF3;n u objeto que se pueda ejecutar) mediante su funci&#xF3;n <code>connect</code>.</li>
+</ol>
+<pre data-role="codeBlock" data-info="python" class="language-python">button<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>calculate_values<span class="token punctuation">)</span>
+</pre><ol>
+<li>Lanzamos el bucle de ejecuci&#xF3;n de nuestro objeto <em>QApplication</em> (<code>app.exec_()</code>).</li>
+</ol>
+<pre data-role="codeBlock" data-info="python" class="language-python">app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre><h2 class="mume-header" id="f%C3%A1cil-no">F&#xE1;cil, &#xBF;no?</h2>
+
+</section><section lineno="350" class="slide " data-line="350" data-h="25" data-v="0">
+<h2 class="mume-header" id="conexiones-entre-signals-y-slots">Conexiones entre signals y slots</h2>
+
+<ul>
+<li>Una se&#xF1;al puede estar conectada a varios <em>slots</em>.</li>
+<li>Una se&#xF1;al puede conectarse tambi&#xE9;n a otra se&#xF1;al.</li>
+<li>Cuando se emite una se&#xF1;al, se pueden incluir como par&#xE1;metros cualquier tipo de datos de Python, que ser&#xE1;n recibidos como par&#xE1;metros de la funci&#xF3;n en el <em>slot</em> correspondiente.</li>
+<li>Un <em>slot</em> puede estar conectado a varias se&#xF1;ales al mismo tiempo.</li>
+<li>Las conexiones pueden ser directas (s&#xED;ncronas) o encoladas (as&#xED;ncronas).</li>
+<li>Se pueden realizar conexiones (as&#xED;ncronas) entre distintos hilos de ejecuci&#xF3;n.</li>
+<li>Una conexi&#xF3;n se&#xF1;al/slot se puede crear o destruir en  cualquier momento del ciclo de vida de la aplicaci&#xF3;n.</li>
+</ul>
+</section><section lineno="360" class="slide " data-line="360" data-h="26" data-v="0">
+<h2 class="mume-header" id="un-di%C3%A1logo-interactivo">Un di&#xE1;logo interactivo</h2>
+
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> PyQt5<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> <span class="token punctuation">(</span>
+        QWidget<span class="token punctuation">,</span> QLabel<span class="token punctuation">,</span> QApplication<span class="token punctuation">,</span> QVBoxLayout<span class="token punctuation">,</span>
+        QPushButton<span class="token punctuation">,</span> QMessageBox<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Form</span><span class="token punctuation">(</span>QWidget<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Form<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>parent<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>nameLabel <span class="token operator">=</span> QLabel<span class="token punctuation">(</span><span class="token string">&quot;Un texto aburrido.&quot;</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>sayHiButton <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">&quot;&amp;Saludar&quot;</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>buttonLayout <span class="token operator">=</span> QVBoxLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>buttonLayout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>nameLabel<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>buttonLayout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>sayHiButton<span class="token punctuation">)</span>
+		<span class="token comment"># Aqu&#xED; conectamos la se&#xF1;al al slot</span>
+        self<span class="token punctuation">.</span>sayHiButton<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>
+		    self<span class="token punctuation">.</span>sayHi<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setLayout<span class="token punctuation">(</span>self<span class="token punctuation">.</span>buttonLayout<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">&quot;&#xA1;Ahora con se&#xF1;ales!&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">sayHi</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        QMessageBox<span class="token punctuation">.</span>information<span class="token punctuation">(</span>
+			self<span class="token punctuation">,</span> <span class="token string">&quot;Hola&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Un saludo poco personal.&quot;</span><span class="token punctuation">)</span>
+
+<span class="token comment"># A&#xF1;adir la inicializaci&#xF3;n de QApplicacion y la instanciaci&#xF3;n de Form...</span>
+</pre></section><section lineno="390" class="slide " data-line="390" data-h="27" data-v="0">
+<h2 class="mume-header" id="c%C3%B3mo-funciona">&#xBF;C&#xF3;mo funciona?</h2>
+
+<ul>
+<li>Hemos conectado la se&#xF1;al <code>clicked</code> del <code>QPushButton</code> a nuestra funci&#xF3;n <code>self.sayHi</code>.</li>
+<li>La clase <code>QMessageBox</code> nos permite crear di&#xE1;logos personalizados, pero tambi&#xE9;n ofrece algunos tipos predefinidos: <code>information</code>, <code>critical</code>, <code>warning</code>, <code>about</code>.</li>
+<li>Otras se&#xF1;ales disponibles en <code>QPushButton</code>: <code>pressed</code>, <code>released</code>.</li>
+</ul>
+</section><section data-background-image="img/question.png" lineno="397" class="slide " data-line="397" data-h="28" data-v="0">
+<ol>
+<li>Reemplazar el texto &apos;Un texto aburrido.&apos; del &#xFA;ltimo ejemplo con el texto &apos;Introduce tu nombre:&apos;.</li>
+<li>A continuaci&#xF3;n insertar un campo de texto editable (<code>QLineEdit</code>) entre la etiqueta de texto (<code>QLabel</code>) y el bot&#xF3;n (<code>QPushButton</code>).</li>
+<li>Modificar la funci&#xF3;n <code>sayHi</code> para que verifique el contenido del campo editable (el m&#xE9;todo <code>text()</code> devuelve el texto introducido). Si el campo de texto est&#xE1; vac&#xED;o, lanzar un mensaje de aviso (<code>QMessageBox.warning</code>), si contiene algo de texto lanzar el mensaje de informaci&#xF3;n &apos;Hola&apos; seguido del texto introducido.</li>
+</ol>
+</section><section lineno="403" class="slide " data-line="403" data-h="29" data-v="0">
+<h2 class="mume-header" id="m%C3%A1s-widgets">M&#xE1;s widgets</h2>
+
+</section><section lineno="407" class="slide " data-line="407" data-h="30" data-v="0">
+<p>Qt nos ofrece un gran n&#xFA;mero de <em>widgets</em> predefinidos:</p>
+<ul>
+<li><code>QWidget</code>: un elemento vac&#xED;o.</li>
+<li><code>QLabel</code>: un etiqueta de texto (tambi&#xE9;n puede contener un icono).</li>
+<li><code>QMessageBox</code>: un di&#xE1;logo de informaci&#xF3;n.</li>
+<li><code>QPushButton</code>: un bot&#xF3;n.</li>
+<li><code>QRadioButton</code>: un bot&#xF3;n de tipo radio.</li>
+<li><code>QCheckBox</code>: una casilla de validaci&#xF3;n.</li>
+<li><code>QSpinBox</code>: un n&#xFA;mero editable y con controles gr&#xE1;ficos.<br>
+Hay muchos m&#xE1;s disponibles...<br>
+Podemos ver todos los elementos disponibles en la aplicaci&#xF3;n <em>QtDesigner</em>, o en la documentaci&#xF3;n del m&#xF3;dulo <code>QtWidgets</code>.</li>
+</ul>
+</section><section lineno="420" class="slide " data-line="420" data-h="31" data-v="0">
+<h2 class="mume-header" id="qtdesigner">QtDesigner</h2>
+
+</section><section lineno="424" class="slide " data-line="424" data-h="32" data-v="0">
+<p><em>QtDesigner</em> es una aplicaci&#xF3;n con la que podemos crear gr&#xE1;ficamente nuestra interfaz.</p>
+<p>Nos permite generar un fichero de formato <code>ui</code> que podemos utilizar gracias al m&#xF3;dulo <code>PyQt5.uic</code>:</p>
+<ul>
+<li>Generar c&#xF3;digo <em>Python</em> que crea todos los elementos de la interfaz program&#xE1;ticamente (utilizando la funci&#xF3;n <code>PyQt5.uic.compileUi</code> o la aplicaci&#xF3;n de l&#xED;nea de comandos <code>pyuic5</code>).</li>
+<li>Cargar din&#xE1;micamente el fichero <code>ui</code> en nuestra aplicaci&#xF3;n (con <code>PyQt5.uic.loadUi</code> cargamos una instancia de la interfaz, con <code>PyQt5.uic.loadUiType</code> cargamos la clase correspondiente).<br>
+Vamos a centrarnos en la utilizar la segunda opci&#xF3;n para crear una aplicaci&#xF3;n.</li>
+</ul>
+</section><section lineno="434" class="slide " data-line="434" data-h="33" data-v="0">
+<p>{\large</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">PyQt5<span class="token punctuation">.</span>uic<span class="token punctuation">.</span>loadUiType<span class="token punctuation">(</span>uifile
+                 <span class="token punctuation">[</span><span class="token punctuation">,</span> from_imports<span class="token operator">=</span><span class="token boolean">False</span>
+                 <span class="token punctuation">[</span><span class="token punctuation">,</span> resource_suffix<span class="token operator">=</span><span class="token string">&apos;_rc&apos;</span>
+                 <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</pre><p>}<br>
+Carga un fichero <code>.ui</code> y devuelve la clase implementada por el fichero y la clase base.</p>
+<ul>
+<li>[uifile] el nombre de fichero de la interfaz <code>.ui</code>.</li>
+<li>[from_imports] indica si las rutas a recursos son relativas a &apos;.&apos; (opcional).</li>
+<li>[resource_suffix] sufijo para los ficheros de recursos (opcional).<br>
+La funci&#xF3;n devuelve la clase derivada de <code>QWidget</code> que implementa la interfaz de usuario y la clase base de la interfaz.</li>
+</ul>
+</section><section lineno="451" class="slide " data-line="451" data-h="34" data-v="0">
+<p>{\large</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">PyQt5<span class="token punctuation">.</span>uic<span class="token punctuation">.</span>loadUi<span class="token punctuation">(</span>uifile
+                 <span class="token punctuation">[</span><span class="token punctuation">,</span> baseinstance<span class="token operator">=</span><span class="token boolean">None</span>
+                 <span class="token punctuation">[</span><span class="token punctuation">,</span> package<span class="token operator">=</span><span class="token string">&apos;&apos;</span>
+                 <span class="token punctuation">[</span><span class="token punctuation">,</span> resource_suffix<span class="token operator">=</span><span class="token string">&apos;_rc&apos;</span>
+                 <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</pre><p>}<br>
+Carga un fichero <code>.ui</code> y devuelve una instancia de la interfaz de usuario.</p>
+<ul>
+<li>[uifile] el nombre de fichero de la interfaz <code>.ui</code>.</li>
+<li>[baseinstance] un objeto del tipo base de la interfaz (opcional).</li>
+<li>[package] el paquete que servir&#xE1; de base para la importaci&#xF3;n de <em>widgets</em> personalizados (opcional).</li>
+<li>[resource_suffix] sufijo para los ficheros de recursos (opcional).<br>
+La funci&#xF3;n devuelve un objeto derivado de <code>QWidget</code> que implementa la interfaz de usuario.</li>
+</ul>
+</section><section lineno="471" class="slide " data-line="471" data-h="35" data-v="0">
+<h2 class="mume-header" id="conversor-de-temperaturas">Conversor de temperaturas</h2>
+
+</section><section lineno="474" class="slide " data-line="474" data-h="36" data-v="0">
+<p>Vamos a crear una sencilla aplicaci&#xF3;n de conversi&#xF3;n de temperaturas entre grados Farenheit y grados Celsius a partir de un modelo <code>.ui</code>:<br>
+<img src="img\temperature.png?0.755465363111524" alt></p>
+</section><section lineno="479" class="slide " data-line="479" data-h="37" data-v="0">
+<p>Pasos a seguir para crear la interfaz:</p>
+<ol>
+<li>En <em>QtDesigner</em> creamos un modelo con un <code>QWidget</code> como base.</li>
+<li>A&#xF1;adimos dos objetos <code>QPushButton</code> para activar la conversion, dos objetos <code>QDoubleSpinBox</code> y una etiqueta <code>QLabel</code>.</li>
+<li>Editamos el texto de los botones y la etiqueta.</li>
+<li>Identificamos los botones con los nombres <code>c2fButton</code> y <code>f2cButton</code> (propiedad <code>objectName</code>).</li>
+<li>Identificamos los <em>spin boxes</em> con los nombres <code>celsiusSpinBox</code> y <code>fahrenheitSpinBox</code> (propiedad <code>objectName</code>).</li>
+<li>En las propiedades de los dos <em>spinboxes</em>, configuramos la alineaci&#xF3;n del texto, los valores m&#xE1;ximo y m&#xED;nimo, y el sufijo (<code>suffix</code>) con la unidad correspondiente (&#xBA;C o &#xBA;F).</li>
+<li>Configuramos el formato del texto de la <code>QLabel</code> tal y como aparece en la imagen.</li>
+</ol>
+</section><section lineno="490" class="slide " data-line="490" data-h="38" data-v="0">
+<p>Una vez que hayamos creado el fichero <code>temperaturas.ui</code> podemos cargarlo desde <em>Python</em>:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> PyQt5 <span class="token keyword">import</span> QtWidgets<span class="token punctuation">,</span> uic
+
+FormClasses <span class="token operator">=</span> uic<span class="token punctuation">.</span>loadUiType<span class="token punctuation">(</span><span class="token string">&quot;temperaturas.ui&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyWindowClass</span><span class="token punctuation">(</span>FormClasses<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> FormClasses<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        FormClasses<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setupUi<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>c2fButton<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>c2f<span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">c2f</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        temp_c <span class="token operator">=</span> self<span class="token punctuation">.</span>celsiusSpinBox<span class="token punctuation">.</span>value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        temp_f <span class="token operator">=</span> temp_c <span class="token operator">*</span> <span class="token number">9</span> <span class="token operator">/</span> <span class="token number">5</span> <span class="token operator">+</span> <span class="token number">32</span>
+        self<span class="token punctuation">.</span>fahrenheitSpinBox<span class="token punctuation">.</span>setValue<span class="token punctuation">(</span>temp_f<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">&quot;__main__&quot;</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> sys
+    app <span class="token operator">=</span> QtWidgets<span class="token punctuation">.</span>QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+    myWindow <span class="token operator">=</span> MyWindowClass<span class="token punctuation">(</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+    myWindow<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre></section><section lineno="517" class="slide " data-line="517" data-h="39" data-v="0">
+<p>Cuando utilizamos un modelo din&#xE1;mico (cargado desde un fichero <code>.ui</code>), tenemos que realizar siempre una llamada a la funci&#xF3;n <code>setupUi</code> para inicializar los widgets de la interfaz.</p>
+<p>Una vez inicializada, podemos acceder a sus elementos mediante su nombre:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        self<span class="token punctuation">.</span>fSpinBox<span class="token punctuation">.</span>value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        self<span class="token punctuation">.</span>fSpinBox<span class="token punctuation">.</span>setValue<span class="token punctuation">(</span><span class="token number">33.0</span><span class="token punctuation">)</span>
+</pre></section><section data-background-image="img/question.png" lineno="529" class="slide " data-line="529" data-h="40" data-v="0">
+<ol>
+<li>A&#xF1;adir a la clase <code>MyWindowClass</code> la funcionalidad para realizar la conversi&#xF3;n de grados Fahrenheit a grados Celsius.</li>
+<li>Comprobar que:<br>
+212&#xBA;F <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> 100&#xBA;C<br>
+0&#xBA;C  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2192;</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">&#x2192;</span></span></span></span> 32&#xBA;F.</li>
+</ol>
+</section><section data-background-image="img/question.png" lineno="537" class="slide " data-line="537" data-h="41" data-v="0">
+<ol>
+<li>Los objetos <code>QDoubleSpinBox</code> emiten dos se&#xF1;ales <code>valueChanged</code> cuando se modifica su valor (una con un <code>float</code> como par&#xE1;metro y otra con un <code>QString</code>).</li>
+<li>Eliminar los botones de la interfaz y conectar las se&#xF1;ales <code>valueChanged</code> para que la conversi&#xF3;n se realice de forma autom&#xE1;tica al modificar cualquiera de los dos valores.</li>
+<li>Para seleccionar cual de las dos se&#xF1;ales existentes con el mismo nombre queremos conectar utilizamos la notaci&#xF3;n siguiente:<br>
+{\scriptsize</li>
+</ol>
+<pre data-role="codeBlock" data-info="python" class="language-python">        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment"># Seleccionamos la se&#xF1;al con el valor num&#xE9;rico</span>
+        self<span class="token punctuation">.</span>celsiusSpinBox<span class="token punctuation">.</span>valueChanged<span class="token punctuation">[</span><span class="token builtin">float</span><span class="token punctuation">]</span><span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment"># Conectamos la se&#xF1;al con la cadena de texto</span>
+        <span class="token comment"># (incluir&#xE1; el prefijo y el sufijo)</span>
+        self<span class="token punctuation">.</span>celsiusSpinBox<span class="token punctuation">.</span>valueChanged<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+</pre><p>}</p>
+</section><section data-background-image="img/question.png" lineno="555" class="slide " data-line="555" data-h="42" data-v="0">
+<ol>
+<li>Comprobar qu&#xE9; ocurre cu&#xE1;ndo se activa una se&#xF1;al <code>valueChanged</code>. &#xBF;C&#xF3;mo podemos evitar un posible bucle infinito de actualizaciones?</li>
+</ol>
+</section><section lineno="559" class="slide " data-line="559" data-h="43" data-v="0">
+<h1 class="mume-header" id="pyqt5-y-matplotlib">PyQt5 y matplotlib</h1>
+
+</section><section lineno="563" class="slide " data-line="563" data-h="44" data-v="0">
+<p><strong><em>matplotlib</em></strong> es una completa biblioteca de visualizaci&#xF3;n de datos.</p>
+<p>Implementa algunos elementos interactivos, pero su uso es complejo.</p>
+<p>Si estamos familiarizados con <em>matplotlib</em>, podemos combinar la flexibilidad de Qt con la facilidad con la que se crean visualizaciones de datos cient&#xED;ficos en <em>matplotlib</em>.</p>
+</section><section lineno="571" class="slide " data-line="571" data-h="45" data-v="0">
+<p>Podemos importar un <em>widget</em> que representa una figura de <em>matplotlib</em>, y dibujar en ella como lo har&#xED;amos desde una aplicacion <em>matplotlib</em> est&#xE1;ndar:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>backends<span class="token punctuation">.</span>backend_Qt5agg <span class="token keyword">import</span> \
+       FigureCanvasQtAgg <span class="token keyword">as</span> FigureCanvas
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment"># a figure instance to plot on</span>
+        self<span class="token punctuation">.</span>figure <span class="token operator">=</span> plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment"># this is the Canvas Widget that displays the `figure`</span>
+        <span class="token comment"># it takes the `figure` instance as a parameter to __init__</span>
+        self<span class="token punctuation">.</span>canvas <span class="token operator">=</span> FigureCanvas<span class="token punctuation">(</span>self<span class="token punctuation">.</span>figure<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> 
+        <span class="token comment"># create an axis</span>
+        ax <span class="token operator">=</span> self<span class="token punctuation">.</span>figure<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">111</span><span class="token punctuation">)</span>
+        <span class="token comment"># discards the old graph</span>
+        ax<span class="token punctuation">.</span>hold<span class="token punctuation">(</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+        <span class="token comment"># plot data</span>
+        ax<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token string">&apos;*-&apos;</span><span class="token punctuation">)</span>
+        <span class="token comment"># refresh canvas</span>
+        self<span class="token punctuation">.</span>canvas<span class="token punctuation">.</span>draw<span class="token punctuation">(</span><span class="token punctuation">)</span>        
+</pre></section><section lineno="597" class="slide " data-line="597" data-h="46" data-v="0">
+<p><code>FigureCanvas</code>es una clase derivada de <code>QWidget</code> que podemos utilizar como cualquier <em>widget</em> est&#xE1;ndar de Qt.</p>
+<p>Ver un ejemplo de uso en el fichero <code>matplotlib_Qt5.py</code>.</p>
+</section><section data-background-image="img/question.png" lineno="604" class="slide " data-line="604" data-h="47" data-v="0">
+<ol>
+<li>A&#xF1;adir a la aplicaci&#xF3;n de conversi&#xF3;n de temperaturas una gr&#xE1;fica con la tabla T[&#xBA;F] vs. T[&#xBA;C] para el rango T = [0&#xBA;C, 200&#xBA;C]</li>
+<li>A&#xF1;adir a la visualizaci&#xF3;n un punto sobre la cuya que refleje el &#xFA;ltimo valor que se ha introducido en las casillas de conversi&#xF3;n.</li>
+</ol>
+</section><section lineno="610" class="slide " data-line="610" data-h="48" data-v="0">
+<h1 class="mume-header" id="pyqtgraph">PyQtgraph</h1>
+
+</section><section lineno="614" class="slide " data-line="614" data-h="49" data-v="0">
+<p><code>PyQtGraph</code> implementa en <em>Python</em> puro, sobre las bibliotecas Qt, todo un arsenal de elementos de visualizaci&#xF3;n cient&#xED;fica:</p>
+<ul>
+<li>Visualizaciones b&#xE1;sicas: im&#xE1;genes, gr&#xE1;ficos 2D, 3D, ...</li>
+<li>M&#xE1;s r&#xE1;pido que <code>matplotlib</code></li>
+<li>Permite definir regiones de inter&#xE9;s en gr&#xE1;ficas e im&#xE1;genes.</li>
+<li>Incorpora elementos para visualizaci&#xF3;n de FFTs, exportaci&#xF3;n a formatos SVG/PNG.<br>
+Y sobre la base de Qt, por lo que se puede integrar perfectamente en aplicaciones m&#xE1;s complejas.</li>
+</ul>
+</section><section lineno="623" class="slide " data-line="623" data-h="50" data-v="0">
+<p>Para entender mejor las capacidades de <code>PyQtGraph</code>, lo mejor es ver la colecci&#xF3;n de ejemplos que incorpora:</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>C:\&gt; pip install pyqtgraph
+C:\&gt; python -m pyqtgraph.examples
+</code></pre></section><section data-background-image="img/question.png" lineno="632" class="slide " data-line="632" data-h="51" data-v="0">
+<ol>
+<li>Analizar en los ejemplos con animaciones el uso de objetos <code>QTimer</code>.</li>
+</ol>
+</section>
+
+</section>
+
+
+      </div>
+    </div>
+
+      </div>
+
+      <script>
+        Reveal.initialize({"margin":0.1,"theme":"white.css","width":1920,"height":1080,"minScale":0.2,"maxScale":1.5,"controls":false,"progress":true,"slideNumber":true,"history":false,"keyboard":true,"overview":true,"center":true,"touch":true,"loop":false,"rtl":false,"shuffle":false,"fragments":true,"embedded":false,"help":true,"showNotes":false,"autoSlide":0,"autoSlideStoppable":true,"mouseWheel":false,"hideAddressBar":true,"previewLinks":false,"transition":"default","transitionSpeed":"default","backgroundTransition":"default","viewDistance":3,"enableSpeakerNotes":false,"dependencies":[]})
+      </script>
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
